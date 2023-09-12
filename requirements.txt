@@ -126,3 +126,4 @@ Werkzeug==2.3.6
 yacs==0.1.8
 yarl==1.9.2
 zipp==3.16.2
+-e git+https://github.com/Probono-sign-language-detection/myopenhands.git
