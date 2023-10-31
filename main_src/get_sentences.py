@@ -54,21 +54,32 @@ def get_sentencecs():
 
 def get_result_json():
     result={}
-    sentence = get_sentencecs()
-    result['output'] = sentence
+    try:
+        sentence = get_sentencecs()
+        result['status'] = "success"
+    except :
+        result['status'] = "error"
+        print("Something is Wrong!! Do Something")
+        return
+    
+    result['predicted_sentence'] = sentence
 
     now =  datetime.now()
     log_time = now.strftime("%y%m%d_%H%M")  # Format as "yymmdd_HHMM"
 
     result_log_file_name = f"{log_time}.json"
 
-    with open(fr"C:\Users\JeongSeongYun\Desktop\OpenHands\OHTest\sentence_ouptuts\{result_log_file_name}", "w", encoding="utf-8") as output:
+    file_path = fr"C:\Users\JeongSeongYun\Desktop\OpenHands\OHTest\sentence_ouptuts\{result_log_file_name}"
+    with open(file_path, "w", encoding="utf-8") as output:
         json.dump(result, output, ensure_ascii=False, indent=4)
 
     print(f"✅ Input Word List : {predictions}")
     print(f"🤖 Output Sentence : {sentence}" )
 
+    with open(file_path, "r", encoding="utf-8") as json_file:
+        data = json.load(json_file)
+    
+    return data
+
 if __name__ == "__main__":                          
     get_result_json()                
-
-
